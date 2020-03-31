@@ -3,7 +3,13 @@ const router = express.Router();
 const passport = require('passport');
 
 router.get('/logged', (req, res) => {
-  req.user ? res.render('logged') : res.redirect('/no-permission');
+  console.log(req.user);
+  req.user
+    ? res.render('logged', {
+        username: req.user.displayName,
+        avatar: req.user.photos[0].value
+      })
+    : res.redirect('/no-permission');
 });
 
 router.get('/no-permission', (req, res) => {
